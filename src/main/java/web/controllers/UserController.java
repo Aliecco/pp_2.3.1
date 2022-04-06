@@ -25,13 +25,13 @@ public class UserController {
 
     @GetMapping
     public String index(Model model){
-        model.addAttribute("users", userDAO.index());
+        model.addAttribute("users", userDAO.readUsers());
         return "users/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
-        model.addAttribute("user", userDAO.show(id));
+        model.addAttribute("user", userDAO.readUser(id));
         return "users/show";
     }
 
@@ -42,7 +42,27 @@ public class UserController {
 
     @PostMapping
     public String create(@ModelAttribute("user") User user){
-        userDAO.save(user);
+
+        userDAO.saveUser(user);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("user", userDAO.readUser(id));
+        return "users/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
+
+        userDAO.updateUser(user);
+        return "redirect:/users";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        userDAO.deleteUserById(id);
         return "redirect:/users";
     }
 }
