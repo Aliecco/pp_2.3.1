@@ -4,30 +4,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.dao.UserDAO;
 import web.models.User;
+import web.service.UserService;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserDAO userDAO;
-
     @Autowired
-    public UserController(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
+    private UserService service;
 
 
     @GetMapping
     public String index(Model model){
-        model.addAttribute("users", userDAO.readUsers());
+        model.addAttribute("users", service.readUsers());
         return "users/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
-        model.addAttribute("user", userDAO.readUser(id));
+        model.addAttribute("user", service.readUser(id));
         return "users/show";
     }
 
@@ -39,26 +35,26 @@ public class UserController {
     @PostMapping
     public String create(@ModelAttribute("user") User user){
 
-        userDAO.saveUser(user);
+        service.saveUser(user);
         return "redirect:/users";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userDAO.readUser(id));
+        model.addAttribute("user", service.readUser(id));
         return "users/edit";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
 
-        userDAO.updateUser(user);
+        service.updateUser(user);
         return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        userDAO.deleteUserById(id);
+        service.deleteUserById(id);
         return "redirect:/users";
     }
 }
