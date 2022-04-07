@@ -5,15 +5,26 @@
     <title>One User</title>
 </head>
 <body>
-<p th:text="${user.getId()}">VALUE</p>
-<p th:text="${user.getName()}">VALUE</p>
-<p th:text="${user.getEmail()}">VALUE</p>
+<table>
+    <tr>
+        <td>Id: </td>
+        <td><a th:text="${user.getId()}">VALUE</a></td>
+    </tr>
+    <tr>
+        <td>Name: </td>
+        <td><a th:text="${user.getName()}">VALUE</a></td>
+    </tr>
+    <tr>
+        <td>Email: </td>
+        <td><a th:text="${user.getEmail()}">VALUE</a></td>
+    </tr>
+</table>
 
-<a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
-
+<button><a th:href="@{/users/{id}/edit(id = ${user.id})}" alt='Broken Link'>Edit</a></button>
 
 <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
     <input type="submit" value="Delete"/>
 </form>
+
 </body>
 </html>

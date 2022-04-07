@@ -18,10 +18,6 @@ public class UserController {
         this.userDAO = userDAO;
     }
 
-//    @GetMapping
-//    public String helloPage(){
-//        return "hello";
-//    }
 
     @GetMapping
     public String index(Model model){

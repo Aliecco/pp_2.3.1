@@ -5,17 +5,19 @@ import web.models.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
 
-    public User updateUser(User user) {
-        return entityManager.merge(user);
+    public void updateUser(User user) {
+        entityManager.merge(user);
     }
 
     public List<User> readUsers() {

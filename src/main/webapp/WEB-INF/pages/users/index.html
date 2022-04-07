@@ -5,16 +5,34 @@
     <title>Users</title>
 </head>
 <body>
-
-<div th:each="user : ${users}">
-    <a th:href="@{/users/{id}(id=${user.getId()})}"
-       th:text="${user.getName()} + ', ' + ${user.getEmail()}">VALUE</a>
-</div>
+<h2>Users</h2>
+<table th:border="1">
+    <tr>
+        <th>id_user</th>
+        <th>Name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:utext="${user.getId()}"></td>
+        <td>
+            <a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">VALUE</a>
+        </td>
+        <td th:text="${user.getLastName()}"></td>
+        <td th:utext="${user.getEmail()}"></td>
+        <td>
+            <button><a th:href="@{/users/{id}/edit(id = ${user.id})}" alt='Broken Link'>Edit</a></button>
+            <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+                <input type="submit" value="Delete"/>
+            </form>
+        </td>
+    </tr>
+</table>
 
 <br/>
 <hr/>
-
-<a href="/users/new">Create new user</a>
+<h2><a href="/users/new">Create new user</a></h2>
 
 </body>
 </html>

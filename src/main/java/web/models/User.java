@@ -15,8 +15,8 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "lastName")
+    private String lastName;
 
     @Column(name = "email")
     private String email;
@@ -24,10 +24,10 @@ public class User {
     public User() {
     }
 
-    public User(int id, String name, String password, String email) {
+    public User(int id, String name, String lastName, String email) {
         this.id = id;
         this.name = name;
-        this.password = password;
+        this.lastName = lastName;
         this.email = email;
     }
 
@@ -47,12 +47,12 @@ public class User {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -69,11 +69,11 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id && Objects.equals(name, user.name) &&
-                Objects.equals(password, user.password) && Objects.equals(email, user.email);
+                Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, password, email);
+        return Objects.hash(id, name, lastName, email);
     }
 }
